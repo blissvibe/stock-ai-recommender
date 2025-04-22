@@ -53,10 +53,10 @@ if st.button("Get Recommendation"):
                 model.fit(X_train, y_train)
 
                 # Step 6: Predict for latest
-                latest = X.tail(1)
-                prediction_encoded = model.predict(latest)  # Returns a 2D array
+                latest = X.tail(1)  # Get the latest row of data
+                prediction_encoded = model.predict(latest)  # Returns 2D array shape (1, 1)
 
-                # Flatten the array and decode the prediction
+                # Flatten the prediction and decode
                 prediction = label_encoder.inverse_transform(prediction_encoded.flatten())[0]
 
                 # Output
