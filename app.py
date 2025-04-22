@@ -1,11 +1,11 @@
 import yfinance as yf
 import pandas as pd
 import streamlit as st
-import numpy as np
 import ta
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+import numpy as np
 
 st.set_page_config(page_title="Indian Stock Recommender", layout="centered")
 
@@ -54,9 +54,10 @@ if st.button("Get Recommendation"):
 
                 # Step 6: Predict for latest
                 latest = X.tail(1)
-                prediction_encoded = model.predict(latest)[0]
-                prediction = label_encoder.inverse_transform(np.array([prediction_encoded]).flatten())[0]
+                prediction_encoded = model.predict(latest)  # Returns a 2D array
 
+                # Flatten the array and decode the prediction
+                prediction = label_encoder.inverse_transform(prediction_encoded.flatten())[0]
 
                 # Output
                 st.success(f"🟢 AI Recommendation for **{symbol}**: **{prediction}**")
