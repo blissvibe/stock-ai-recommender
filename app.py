@@ -1,6 +1,7 @@
 import yfinance as yf
 import pandas as pd
 import streamlit as st
+import numpy as np
 import ta
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
@@ -54,7 +55,8 @@ if st.button("Get Recommendation"):
                 # Step 6: Predict for latest
                 latest = X.tail(1)
                 prediction_encoded = model.predict(latest)[0]
-                prediction = label_encoder.inverse_transform([prediction_encoded])[0]
+                prediction = label_encoder.inverse_transform(np.array([prediction_encoded]).flatten())[0]
+
 
                 # Output
                 st.success(f"🟢 AI Recommendation for **{symbol}**: **{prediction}**")
